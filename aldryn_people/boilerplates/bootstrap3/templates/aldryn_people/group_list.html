@@ -2,18 +2,19 @@
 {% load cms_tags i18n %}
 
 {% block people_content %}
-    <div class="aldryn aldryn-people aldryn-group-list">
-        {% for group in group_list %}
-            <h2>{% render_model group 'name' %}</h2>
-            {% for person in group.people.all|dictsort:"name" %}
-                {% include "aldryn_people/includes/person.html" with person=person %}
-            {% endfor %}
-        {% endfor %}
-        {% if ungrouped_people %}
-            <h2>{% trans "Ungrouped" %}</h2>
-            {% for person in ungrouped_people %}
-                {% include "aldryn_people/includes/person.html" with person=person %}
-            {% endfor %}
-        {% endif %}
-    </div>
+  <div class="aldryn aldryn-people aldryn-group-list">
+    {% for group in group_list %}
+      <div class="heading-title-alt text-left ">
+          <h4 class="text-uppercase">{% render_model group 'name' %}</h4>
+      </div>
+      {% include "aldryn_people/includes/people_table.html" with persons=group.people.all %}
+    {% endfor %}
+
+    {% if ungrouped_people %}
+      <div class="heading-title-alt text-left ">
+          <h4 class="text-uppercase">{% trans "Ungrouped" %}</h4>
+      </div>
+      {% include "aldryn_people/includes/people_table.html" with persons=ungrouped_people %}
+    {% endif %}
+  </div>
 {% endblock people_content %}

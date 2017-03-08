@@ -2,17 +2,19 @@
 {% load i18n cms_tags %}
 
 {% block people_base_content %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-16 col-md-push-4">
-                <div class="aldryn aldryn-people">
-                    {% block people_content %}{% endblock %}
-                </div>
-            </div>
-        </div>
-
-        <div class="aldryn aldryn-people">
-            {% block people_footer %}{% endblock %}
-        </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="aldryn aldryn-people">
+          {% block people_content %}{% endblock %}
+      </div>
     </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="aldryn aldryn-people">
+          {% block people_footer %}{% endblock %}
+      </div>
+    </div>
+  </div>
 {% endblock people_base_content %}
