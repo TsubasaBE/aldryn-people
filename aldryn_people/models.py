@@ -196,6 +196,14 @@ class Person(TranslationHelperMixin, TranslatedAutoSlugifyMixin,
         description=HTMLField(_('description'),
             blank=True, default='')
     )
+
+    address = models.TextField(
+        verbose_name=_('address'), blank=True)
+    postal_code = models.CharField(
+        verbose_name=_('postal code'), max_length=20, blank=True)
+    city = models.CharField(
+        verbose_name=_('city'), max_length=255, blank=True)
+        
     phone = models.CharField(
         verbose_name=_('phone'), null=True, blank=True, max_length=100)
     mobile = models.CharField(

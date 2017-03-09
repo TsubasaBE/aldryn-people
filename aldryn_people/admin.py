@@ -55,7 +55,7 @@ class PersonAdmin(VersionedPlaceholderAdminMixin,
         }),
         (_('Contact (untranslated)'), {
             'fields': (
-                'visual', 'phone', 'mobile', 'fax', 'email', 'website',
+                'visual', 'address', 'postal_code', 'city', 'phone', 'mobile', 'fax', 'email', 'website',
                 'user', 'vcard_enabled'
             ),
         }),
