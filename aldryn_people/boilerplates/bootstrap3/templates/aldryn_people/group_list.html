@@ -1,5 +1,5 @@
 {% extends "aldryn_people/fullwidth.html" %}
-{% load cms_tags i18n %}
+{% load cms_tags i18n static %}
 
 {% block people_content %}
   <div class="aldryn aldryn-people aldryn-group-list">
@@ -7,7 +7,7 @@
       <div class="heading-title-alt text-left ">
           <h4 class="text-uppercase">{% render_model group 'name' %}</h4>
       </div>
-      {% include "aldryn_people/includes/people_table.html" with persons=group.people.all %}
+      {% include "aldryn_people/includes/people_table.html" with persons=group.people.all|dictsort:"name" %}
     {% endfor %}
 
     {% if ungrouped_people %}

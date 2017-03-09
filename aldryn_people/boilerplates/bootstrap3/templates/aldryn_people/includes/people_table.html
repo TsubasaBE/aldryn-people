@@ -1,32 +1,28 @@
 {% load cms_tags i18n static %}
 
-<table class="table table-hover">
+<table class="person_table table table-hover">
     <thead>
         <tr>
-            <th>#</th>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Username</th>
+            <th>{% trans "#" %}</th>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "City" %}</th>
+            <th>{% trans "Phone" %}</th>
+            <th>{% trans "Mobile" %}</th>
+            <th>{% trans "Email" %}</th>
+            <th>{% trans "VCard" %}</th>
         </tr>
     </thead>
     <tbody>
-        <tr>
-            <th scope="row">1</th>
-            <td>Mark</td>
-            <td>Otto</td>
-            <td>@mdo</td>
+      {% for person in persons %}
+        <tr class="person_row" data-person-url="{{ person.get_absolute_url }}">
+            <th scope="row">{{ person.id }}</th>
+            <td>{{ person.name }}</td>
+            <td>{{ person.city }}</td>
+            <td>{{ person.phone }}</td>
+            <td>{{ person.mobile }}</td>
+            <td><a href='mailto:{{ person.email }}'>{{ person.email }}</a></td>
+            <td>{% if person.vcard_enabled %}<a href="{{ person.get_vcard_url }}" class="vcard-download"><i class="fa fa-address-card-o" aria-hidden="true"></i></a>{% endif %}</td>
         </tr>
-        <tr>
-            <th scope="row">2</th>
-            <td>Jacob</td>
-            <td>Thornton</td>
-            <td>@fat</td>
-        </tr>
-        <tr>
-            <th scope="row">3</th>
-            <td>Larry</td>
-            <td>the Bird</td>
-            <td>@twitter</td>
-        </tr>
+      {% endfor %}
     </tbody>
 </table>

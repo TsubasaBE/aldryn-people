@@ -3,11 +3,15 @@
 
 {% block title %}{{ group.name }} - {{ block.super }}{% endblock %}
 
+{% block page-title-next-to-breadcrumb %}
+  {{ group.name }}
+{% endblock page-title-next-to-breadcrumb %}
+
 {% block people_content %}
     <div class="aldryn aldryn-people aldryn-group-detail">
-        <h2>{% render_model group "name" %}</h2>
-        {% for person in group.people.all|dictsort:"name" %}
-            {% include "aldryn_people/includes/person.html" with person=person %}
-        {% endfor %}
+      <div class="heading-title-alt text-left ">
+          <h4 class="text-uppercase">{% render_model group 'name' %}</h4>
+      </div>
+      {% include "aldryn_people/includes/people_table.html" with persons=group.people.all|dictsort:"name" %}
     </div>
 {% endblock people_content %}

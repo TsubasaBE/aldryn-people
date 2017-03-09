@@ -1,60 +1,69 @@
 {% load cms_tags i18n thumbnail aldryn_people_tags %}
 
-<article class="aldryn-people-article">
-    {% if person.visual %}
-        <p class="visual">
-            {% if instance.show_links %}
-                <a href="{{ person.get_absolute_url }}">
-            {% endif %}
-                <img src="{% thumbnail person.visual 400x300 crop subject_location=person.visual.subject_location %}" alt="{{ person.name }}">
-            {% if instance.show_links %}
-                </a>
-            {% endif %}
+<div class="row">
+  {% if person.visual %}
+    <div class="col-md-6">
+        <div class="team-member">
+            <div class="team-img">
+              {% if instance.show_links %}
+                  <a href="{{ person.get_absolute_url }}">
+              {% endif %}
+              <img src="{% thumbnail person.visual 525x370 subject_location=person.visual.subject_location %}" alt="{{ person.name }}">
+              {% if instance.show_links %}
+                  </a>
+              {% endif %}
+            </div>
+        </div>
+    </div>
+  {% endif %}
+  <div class="col-md-6">
+    <div class="team-title">
+      <h4><strong>{{ person.name }}</strong></h4>
+      <span>{{ person.function }}</span>
+    </div>
+    <div class="team-member-contact-info">
+      {% if person.address or person.postal_code or person.city %}
+        <p>
+          <div class="row">
+            <div class="col-md-1">
+              <span class="fa fa-fw fa-address-card-o" aria-hidden="true"></span>
+            </div>
+            <div class="col-md-11">
+              <p class="no-line-height">
+                {{ person.address }}<br />
+                {{ person.postal_code }} {{ person.city }}
+              </p>
+            </div>
+          </div>
         </p>
-    {% endif %}
+      {% endif %}
+      {% if person.phone %}<p><span class="fa fa-fw fa-phone" aria-hidden="true"></span> {{ person.phone }}</p>{% endif %}
+      {% if person.mobile %}<p><span class="fa fa-fw fa-mobile" aria-hidden="true"></span> {{ person.mobile }}</p>{% endif %}
+      {% if person.fax %}<p><span class="fa fa-fw fa-fax" aria-hidden="true"></span> {{ person.fax }}</p>{% endif %}
+      {% if person.email %}<p><span class="fa fa-fw fa-envelope-o" aria-hidden="true"></span> <a href='mailto:{{ person.email }}'>{{ person.email }}</a></p>{% endif %}
+      {% if person.website %}
+        <p>
+          <span class="fa fa-fw fa-globe" aria-hidden="true"></span>
+          <a href="{{ person.website }}" target="_blank">{{ person.website }}</a>
+        </p>
+      {% endif %}
+    </div>
+  </div>
+</div>
 
-    {% if not group %}<h2>{% else %}<h3>{% endif %}
-        {% if not instance and not detail_view or instance.show_links %}
-            <a href="{{ person.get_absolute_url }}">{{ person.name }}</a>
-        {% else %}
-            {% render_model person 'name' %}
-        {% endif %}
-        <small>{{ person.function }}</small>
-    {% if not group %}</h2>{% else %}</h3>{% endif %}
+{% if person.description %}
+  <div class="row">
+    <div class="col-md-12">
+      <p></p>
+      <p><strong><u>{% trans "About" %}</u></strong></p>
+      <p>{{ person.description|safe }}</p>
+    </div>
+  </div>
+{% endif %}
 
-    <p class="meta">
-        {% if person.phone %}
-            <strong>{% trans "Phone:" %}</strong>
-            {{ person.phone|phoneformat }}<br>
-        {% endif %}
-        {% if person.mobile %}
-            <strong>{% trans "Mobile:" %}</strong>
-            {{ person.mobile|phoneformat }}<br>
-        {% endif %}
-        {% if person.fax %}
-            <strong>{% trans "Fax:" %}</strong>
-            {{ person.fax }}<br>
-        {% endif %}
-        {% if person.email %}
-            <strong>{% trans "Email:" %}</strong>
-            <span class="fa fa-fw fa-envelope" aria-hidden="true"></span>
-            <a href="mailto:{{ person.email }}">{{ person.email }}</a><br>
-        {% endif %}
-        {% if person.website %}
-            <strong>{% trans "Website:" %}</strong>
-            <span class="fa fa-fw fa-globe" aria-hidden="true"></span>
-            <a href="{{ person.website }}" target="_blank">{{ person.website }}</a><br>
-        {% endif %}
-    </p>
-
-    {% if person.description %}
-        <div class="lead">{{ person.description|safe }}</div>
-    {% endif %}
-
-    {% if not instance and person.vcard_enabled or instance.show_vcard and person.vcard_enabled %}
-        <a href="{{ person.get_vcard_url }}" class="btn btn-default btn-sm">
-            <span class="fa fa-fw fa-download" aria-hidden="true"></span>
-            {% trans "Download vCard" %}
-        </a>
-    {% endif %}
-</article>
+{% if not instance and person.vcard_enabled or instance.show_vcard and person.vcard_enabled %}
+  <a href="{{ person.get_vcard_url }}" class="btn btn-default btn-sm">
+    <span class="fa fa-fw fa-download" aria-hidden="true"></span>
+    {% trans "Download vCard" %}
+  </a>
+{% endif %}

@@ -1,5 +1,5 @@
 {% extends "aldryn_people/base.html" %}
-{% load i18n cms_tags %}
+{% load i18n cms_tags static sekizai_tags %}
 
 {% block people_base_content %}
   <div class="row">
@@ -17,4 +17,8 @@
       </div>
     </div>
   </div>
+
+  {% addtoblock "custom-js" %}
+    <script src="{% static "js/custom_aldryn_people.js" %}"></script>
+  {% endaddtoblock %}
 {% endblock people_base_content %}
