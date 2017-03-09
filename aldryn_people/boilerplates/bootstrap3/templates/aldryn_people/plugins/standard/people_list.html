@@ -16,17 +16,27 @@
                 {% for group, people_list in people_groups.items %}
                     {% if group.name %}
                         {% include "aldryn_people/includes/group.html" %}
-                        {% for person in people_list %}
-                            {% include "aldryn_people/includes/person.html" with person=person group="true" %}
-                        {% endfor %}
+                        <div class="row">
+                          {% for person in people_list %}
+                            <div class="col-md-6">
+                              {% include "aldryn_people/includes/person.html" with person=person group="true" %}
+                            </div>
+                          {% endfor %}
+                        </div>
                     {% endif %}
                 {% endfor %}
                 {# IMPORTANT: and than the remaining, if any #}
                 {% if groupless_people.count %}
-                    <h2>{% trans "Ungrouped" %}</h2>
-                    {% for person in groupless_people.all %}
-                        {% include "aldryn_people/includes/person.html" with person=person group="true" %}
-                    {% endfor %}
+                    <div class="heading-title-alt text-left ">
+                        <h4 class="text-uppercase">{% trans "Ungrouped" %}</h4>
+                    </div>
+                    <div class="row">
+                      {% for person in groupless_people.all %}
+                        <div class="col-md-6">
+                          {% include "aldryn_people/includes/person.html" with person=person group="true" %}
+                        </div>
+                      {% endfor %}
+                    </div>
                 {% endif %}
             {% endlanguage %}
         </div>

@@ -2,7 +2,7 @@
 {% load cms_tags i18n static %}
 
 {% block people_content %}
-  <div class="aldryn aldryn-people aldryn-group-list">
+  <div class="aldryn aldryn-people aldryn-group-list custom-padding">
     {% for group in group_list %}
       <div class="heading-title-alt text-left ">
           <h4 class="text-uppercase">{% render_model group 'name' %}</h4>
